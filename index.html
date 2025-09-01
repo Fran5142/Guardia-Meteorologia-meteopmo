@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GUARDIA</title>
+<title>GUARDIA CENMETEOPMO</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700&display=swap');
 
@@ -25,7 +25,7 @@ h2.main-header {
   font-size: 3em;
   font-weight: 700;
   color: #B0E0E6; /* Celeste suave */
-  text-shadow: 0 0 2px rgba(176,224,230,0.6); /* Resplandor más suave */
+  text-shadow: 0 0 2px rgba(176,224,230,0.6);
   margin: 20px 0;
   text-align: center;
 }
@@ -46,7 +46,7 @@ h2.main-header {
 
 .clock-label {
   font-family: 'Inter', sans-serif;
-  font-size: 1.5em; /* un poco más grande */
+  font-size: 1.5em;
   font-weight: 600;
   color: #c0d6d6;
   margin-bottom: 5px;
@@ -55,7 +55,7 @@ h2.main-header {
 .clock {
   font-size: 2em;
   font-weight: 700;
-  color: #66CDAA; /* Verde suave */
+  color: #66CDAA;
   text-shadow: 0 0 2px rgba(102,205,170,0.5);
   transition: all 0.5s ease;
 }
@@ -166,8 +166,8 @@ footer {
 </head>
 <body>
 
-<!-- Encabezado principal arriba -->
-<h2 class="main-header">GUARDIA METEOROLOGÍA</h2>
+<!-- Encabezado principal -->
+<h2 class="main-header">GUARDIA METEOROLOGÍA CENMETEOPMO</h2>
 
 <!-- Reloj -->
 <div class="clock-container">
@@ -176,9 +176,7 @@ footer {
     <div class="clock" id="localClock"></div>
   </div>
   <div>
-    <img src="https://archive.org/download/imagen_mejorada_3D/LOGO%20METEOPMO.png" 
-         alt="Logo" 
-         style="height:200px;"> <!-- Logo centrado -->
+    <img src="https://archive.org/download/imagen_mejorada_3D/LOGO%20METEOPMO.png" alt="Logo" style="height:200px;">
   </div>
   <div>
     <div class="clock-label">Hora UTC</div>
@@ -211,39 +209,40 @@ footer {
   <img src="https://as2.ftcdn.net/jpg/02/86/21/81/1000_F_286218149_9NrRySgICaE3J5NFELeSM3LI4HgAbUWa.jpg">
 </div>
 
-<!-- Pie de firma -->
+<!-- Botón flotante -->
+<a href="https://intranet.dgtm.cl" target="_blank" 
+   class="floating-btn" 
+   style="right: 20px; background: #001f3f;">
+  <img src="https://archive.org/download/chat-gpt-image-1-sept-2025-15-47-06/ChatGPT%20Image%201%20sept%202025%2C%2015_47_06.png" 
+       alt="Icono" 
+       style="width: 100%; height: 100%; border-radius: 50%;">
+</a>
+
+<!-- Pie -->
 <footer>
   Creado por Cabo 2º (Met.) Francisco Salas Muñoz - 26/08/2025 
 </footer>
 
 <script>
-// Slideshow automático
+// Slideshow
 let slideIndex = 0;
 const slides = document.querySelectorAll(".slideshow-container img");
-
 function showSlides() {
   slides.forEach(slide => slide.classList.remove("active"));
   slides[slideIndex].classList.add("active");
   slideIndex = (slideIndex + 1) % slides.length;
 }
-
-showSlides(); // Mostrar primero de inmediato
+showSlides();
 setInterval(showSlides, 5000);
 
-// Reloj local y UTC
+// Relojes
 function updateClocks() {
   const now = new Date();
-  const localHours = String(now.getHours()).padStart(2,'0');
-  const localMinutes = String(now.getMinutes()).padStart(2,'0');
-  const localSeconds = String(now.getSeconds()).padStart(2,'0');
-  document.getElementById('localClock').textContent = `${localHours}:${localMinutes}:${localSeconds}`;
-
-  const utcHours = String(now.getUTCHours()).padStart(2,'0');
-  const utcMinutes = String(now.getUTCMinutes()).padStart(2,'0');
-  const utcSeconds = String(now.getUTCSeconds()).padStart(2,'0');
-  document.getElementById('utcClock').textContent = `${utcHours}:${utcMinutes}:${utcSeconds}`;
+  document.getElementById('localClock').textContent = 
+    `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+  document.getElementById('utcClock').textContent = 
+    `${String(now.getUTCHours()).padStart(2,'0')}:${String(now.getUTCMinutes()).padStart(2,'0')}:${String(now.getUTCSeconds()).padStart(2,'0')}`;
 }
-
 setInterval(updateClocks, 1000);
 updateClocks();
 </script>
