@@ -3,178 +3,195 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GUARDIA CENMETEOPMO</title>
+<title>GUARDIA CENMETEOPMO - DASHBOARD</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700&family=Roboto+Mono:wght@500;700&display=swap');
+
+:root {
+  --bg-main: #0a1118; /* Azul marino muy oscuro */
+  --bg-panel: #131e2b;
+  --border-panel: #20334a;
+  --text-main: #e2e8f0;
+  --accent: #4fd1c5;
+}
 
 body {
   font-family: 'Inter', sans-serif;
   margin: 0;
-  padding: 0;
-  background: linear-gradient(180deg, #1e1e2f, #0f0f17);
-  color: #f5f5f5;
+  padding: 20px;
+  background-color: var(--bg-main);
+  background-image: radial-gradient(circle at top right, #112030, transparent 40%);
+  color: var(--text-main);
   min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Contenedor Principal Dashboard */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Paneles */
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-panel);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+/* Encabezado Principal (Ocupa ambas columnas) */
+.header-panel {
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Encabezado principal */
+.header-panel::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, #3498db, #2ecc71);
+}
+
 h2.main-header {
   font-family: 'Montserrat', sans-serif;
-  font-size: 3em;
+  font-size: 2.2em;
   font-weight: 700;
-  color: #B0E0E6; /* Celeste suave */
-  text-shadow: 0 0 2px rgba(176,224,230,0.6);
-  margin: 20px 0;
+  color: #ffffff;
+  margin: 10px 0;
   text-align: center;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
-/* Reloj */
-.clock-container {
+/* Relojes y Logo */
+.top-bar {
   display: flex;
+  width: 100%;
+  justify-content: space-around;
   align-items: center;
-  justify-content: space-between;
-  width: 90%;
-  max-width: 800px;
-  margin: 20px auto;
+  margin-top: 15px;
 }
 
-.clock-container div {
+.clock-widget {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid #2a3f5a;
+  padding: 15px 25px;
+  border-radius: 12px;
   text-align: center;
+  min-width: 180px;
 }
 
 .clock-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.5em;
-  font-weight: 600;
-  color: #c0d6d6;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #8babc4;
   margin-bottom: 5px;
 }
 
 .clock {
-  font-size: 2em;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 2.2em;
   font-weight: 700;
-  color: #66CDAA;
-  text-shadow: 0 0 2px rgba(102,205,170,0.5);
-  transition: all 0.5s ease;
+  color: var(--accent);
+  text-shadow: 0 0 10px rgba(79, 209, 197, 0.3);
 }
 
-/* Botones */
-.btn-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-  padding: 0 20px;
+.logo-container img {
+  height: 160px;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+}
+
+/* Contenedor de Botones (Panel Izquierdo) */
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
 }
 
 .btn {
-  padding: 18px 36px;
-  font-size: 1.1em;
+  padding: 14px 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85em;
   font-weight: 600;
   color: #fff;
   border: none;
-  border-radius: 12px;
+  border-radius: 8px;
   cursor: pointer;
   background-size: 200% 100%;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(255,255,255,0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+  filter: brightness(1.1);
 }
 
-/* Morado / púrpura */
+.btn-wide {
+  grid-column: 1 / -1;
+  padding: 16px;
+  font-size: 0.95em;
+}
+
+/* Colores Originales Exactos */
 .btn-purple { background-image: linear-gradient(90deg,#8e44ad,#4a235a); }
-
-/* Azul */
 .btn-blue { background-image: linear-gradient(90deg,#3498db,#2c3e50); }
-
-/* Verde */
 .btn-green { background-image: linear-gradient(90deg,#2ecc71,#27ae60); }
-
-/* Naranja */
 .btn-orange { background-image: linear-gradient(90deg,#f39c12,#d35400); }
-
-/* Rojo */
 .btn-red { background-image: linear-gradient(90deg,#e74c3c,#c0392b); }
-
-/* Amarillo / dorado */
 .btn-gold { background-image: linear-gradient(90deg,#f1c40f,#f39c12); }
-
-/* Turquesa / cyan */
 .btn-turquoise { background-image: linear-gradient(90deg,#1abc9c,#16a085); }
-
-/* Rosa */
 .btn-pink { background-image: linear-gradient(90deg,#ff6b81,#c0392b); }
-
-/* Marrón */
 .btn-brown { background-image: linear-gradient(90deg,#a0522d,#6e2c00); }
-
-/* Gris claro */
 .btn-lightgray { background-image: linear-gradient(90deg,#bdc3c7,#7f8c8d); }
-
-/* Gris oscuro */
 .btn-darkgray { background-image: linear-gradient(90deg,#7f8c8d,#2c3e50); }
-
-/* Celeste */
 .btn-lightblue { background-image: linear-gradient(90deg,#5dade2,#2e86c1); }
-
-/* Verde lima */
 .btn-lime { background-image: linear-gradient(90deg,#a3e635,#6f9e18); }
-
-/* Coral */
 .btn-coral { background-image: linear-gradient(90deg,#ff7f50,#e74c3c); }
-
-/* Salmón */
 .btn-salmon { background-image: linear-gradient(90deg,#fa8072,#e74c3c); }
-
-/* Azul marino */
 .btn-navy { background-image: linear-gradient(90deg,#34495e,#2c3e50); }
-
-/* Oro viejo */
 .btn-oldgold { background-image: linear-gradient(90deg,#b7950b,#7d6608); }
-
-/* Violeta claro */
 .btn-lightviolet { background-image: linear-gradient(90deg,#af7ac5,#7d3c98); }
-
-/* Verde esmeralda */
 .btn-emerald { background-image: linear-gradient(90deg,#2ecc71,#27ae60); }
-
-/* Azul cielo */
 .btn-skyblue { background-image: linear-gradient(90deg,#87ceeb,#3498db); }
-
-/* Magenta */
 .btn-magenta { background-image: linear-gradient(90deg,#ff00ff,#8e44ad); }
-
-/* Indigo */
 .btn-indigo { background-image: linear-gradient(90deg,#4b0082,#2c3e50); }
-
-/* Beige */
 .btn-beige { background-image: linear-gradient(90deg,#f5f5dc,#d7ccc8); }
-
-/* Mint */
 .btn-mint { background-image: linear-gradient(90deg,#98ff98,#2ecc71); }
-
-/* Chocolate */
 .btn-chocolate { background-image: linear-gradient(90deg,#d2691e,#8b4513); }
-
-/* Cyan oscuro */
 .btn-darkcyan { background-image: linear-gradient(90deg,#008b8b,#005555); }
 
-/* Slideshow */
+/* Slideshow (Panel Derecho) */
 .slideshow-container {
-  width: 90%;
-  max-width: 800px;
-  height: 450px;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
   position: relative;
   overflow: hidden;
   border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.5);
-  margin: 30px auto;
+  background: #000;
 }
 
 .slideshow-container img {
@@ -191,134 +208,132 @@ h2.main-header {
 }
 
 /* Botones flotantes */
-.floating-btn {
+.floating-container {
   position: fixed;
   bottom: 20px;
-  width: 60px;
-  height: 60px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none; /* Deja clickear a través de la caja invisible */
+  z-index: 1000;
+}
+
+.floating-btn {
+  pointer-events: auto; /* Reactiva el click en los botones */
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  animation: bounceIn 0.6s;
-  z-index: 1000;
+  transition: transform 0.2s ease;
+  background: #131e2b;
+  border: 2px solid #20334a;
 }
 
 .floating-btn:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-}
-
-.floating-btn img {
-  width: 30px;
-  height: 30px;
-}
-
-@keyframes bounceIn {
-  0% { transform: scale(0); }
-  60% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+  transform: scale(1.1);
 }
 
 /* Pie de firma */
 footer {
-  margin-top: 30px;
+  grid-column: 1 / -1;
+  margin-top: 20px;
   padding: 15px;
-  font-size: 0.9em;
+  font-size: 0.85em;
   text-align: center;
-  color: #bbb;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-  border-top: 1px solid rgba(255,255,255,0.1);
-  width: 100%;
+  color: #5d758f;
+  border-top: 1px solid var(--border-panel);
+}
+
+@media (max-width: 768px) {
+  .top-bar {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .slideshow-container {
+    min-height: 300px;
+  }
 }
 </style>
 </head>
 <body>
 
-<!-- Encabezado principal -->
-<h2 class="main-header">GUARDIA METEOROLOGÍA CENMETEOPMO</h2>
+<div class="dashboard-grid">
+  
+  <header class="panel header-panel">
+    <h2 class="main-header">GUARDIA METEOROLOGÍA CENMETEOPMO</h2>
+    <div class="top-bar">
+      <div class="clock-widget">
+        <div class="clock-label">Hora Local</div>
+        <div class="clock" id="localClock">--:--:--</div>
+      </div>
+      <div class="logo-container">
+        <img src="https://archive.org/download/imagen_mejorada_3D/LOGO%20METEOPMO.png" alt="Logo">
+      </div>
+      <div class="clock-widget">
+        <div class="clock-label">Hora UTC</div>
+        <div class="clock" id="utcClock">--:--:--</div>
+      </div>
+    </div>
+  </header>
 
-<!-- Reloj -->
-<div class="clock-container">
-  <div>
-    <div class="clock-label">Hora Local</div>
-    <div class="clock" id="localClock"></div>
-  </div>
-  <div>
-    <img src="https://archive.org/download/imagen_mejorada_3D/LOGO%20METEOPMO.png" alt="Logo" style="height:200px;">
-  </div>
-  <div>
-    <div class="clock-label">Hora UTC</div>
-    <div class="clock" id="utcClock"></div>
-  </div>
+  <section class="panel">
+    <div class="btn-grid">
+      <button class="btn btn-green" onclick="window.open('https://tvgmpmo.dgtm.cl//index.html')">TABLA VIRTUAL</button>
+      <button class="btn btn-red" onclick="window.open('http://172.16.0.149/aplica/index.php#')">SYNOP DB</button>
+      <button class="btn btn-blue" onclick="window.open('https://mdaemon2.dgtm.cl/WorldClient.dll?Session=UQGL4O2AFQBNB&View=Main&NextView=List&NextFolderID=0&NextFolder=Bandeja%20de%20entrada','_blank')">CORREO</button>
+      <button class="btn btn-orange" onclick="window.open('https://cumulus.dgtm.cl/nextcloud/index.php/login')">NUBE 2.0</button>
+      <button class="btn btn-blue" onclick="window.open('https://web.directemar.cl/met/jturno/indice/index.htm','_blank')">LIVIANA</button>
+      <button class="btn btn-green" onclick="window.open('https://web.directemar.cl/met/jturno/estaciones/davis.htm','_blank')">ESTACIONES</button>
+      <button class="btn btn-red" onclick="window.open('https://web.directemar.cl/met/jturno/pluvio/pluvio_pmo.jpg','_blank')">AGUA CAÍDA</button>
+      <button class="btn btn-orange" onclick="window.open('https://fran5142.github.io/Calculadora-Psicrom-trica/','_blank')">CALC. RH</button> 
+      
+      <button class="btn btn-red" onclick="window.open('https://www.meteochile.gob.cl/PortalDMC-web/index.xhtml','_blank')">DMC UV</button> 
+      <button class="btn btn-oldgold" onclick="window.open('https://climatologia.meteochile.gob.cl/application/requerimiento/producto/RE5012','_blank')">DGAC OBS</button> 
+      <button class="btn btn-darkcyan" onclick="window.open('https://zoom.earth/','_blank')">ZOOM EARTH</button> 
+      <button class="btn btn-purple" onclick="window.open('https://www.windy.com/','_blank')">WINDY</button> 
+      <button class="btn btn-brown" onclick="window.open('https://remuneraciones.armada.cl/portalIntranetRemun/','_blank')">REMUNERACIONES</button> 
+      <button class="btn btn-turquoise" onclick="window.open('https://serviciosonline.directemar.cl/auth2/login/0/1/0','_blank')">METEOCARGA</button> 
+      <button class="btn btn-magenta" onclick="window.open('https://prontus-meteoarmada.directemar.cl/cgi-cpn/prontus_index.cgi?_prontus_id=meteo','_blank')">PRONTUS (P)</button> 
+
+      <button class="btn btn-purple btn-wide" onclick="window.open('https://fran5142.github.io/GENERADOR-DE-PRONOSTICOS-PDF/')">GENERADOR DE PRONOSTICOS PDF SALAS</button>
+    </div>
+  </section>
+
+  <section class="panel" style="padding: 10px;">
+    <div class="slideshow-container">
+      <img src="https://web.directemar.cl/met/jturno/pluvio/pluvio_pmo.jpg" class="active">
+      <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.13.50.jpeg">
+      <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.13.52.jpeg">
+      <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.03.jpeg">
+      <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.06.jpeg">
+      <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.08.jpeg">
+      <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.14%20%281%29.jpeg">
+      <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.15%20%282%29.jpeg">
+    </div>
+  </section>
+
+  <footer>
+    Creado por Cabo 1º (Met.) Francisco Salas Muñoz - Actualizado 2026
+  </footer>
+
 </div>
 
-<!-- Botonera -->
-<div class="btn-container">
-
-  <button class="btn btn-green" onclick="window.open('https://tvgmpmo.dgtm.cl//index.html')">TABLA VIRTUAL</button>
-  <button class="btn btn-red" onclick="window.open('http://172.16.0.149/aplica/index.php#')">SYNOP DB</button>
-  <button class="btn btn-blue" onclick="window.open('https://mdaemon2.dgtm.cl/WorldClient.dll?Session=UQGL4O2AFQBNB&View=Main&NextView=List&NextFolderID=0&NextFolder=Bandeja%20de%20entrada','_blank')">CORREO</button>
-  <button class="btn btn-orange" onclick="window.open('https://cumulus.dgtm.cl/nextcloud/index.php/login')">NUBE 2.0</button>
-  <button class="btn btn-blue" onclick="window.open('https://web.directemar.cl/met/jturno/indice/index.htm','_blank')">LIVIANA</button>
-  <button class="btn btn-green" onclick="window.open('https://web.directemar.cl/met/jturno/estaciones/davis.htm','_blank')">ESTACIONES</button>
-  <button class="btn btn-red" onclick="window.open('https://web.directemar.cl/met/jturno/pluvio/pluvio_pmo.jpg','_blank')">AGUA CAÍDA</button>
-  <button class="btn btn-orange" onclick="window.open('https://fran5142.github.io/Calculadora-Psicrom-trica/','_blank')">CALCULADORA RH</button> 
-
-  <button class="btn btn-purple" onclick="window.open('https://fran5142.github.io/GENERADOR-DE-PRONOSTICOS-PDF/')">GENERADOR DE PRONOSTICOS PDF SALAS</button>
-
-  <button class="btn btn-red" onclick="window.open('https://www.meteochile.gob.cl/PortalDMC-web/index.xhtml','_blank')">DMC UV</button> 
-  <button class="btn btn-oldgold" onclick="window.open('https://climatologia.meteochile.gob.cl/application/requerimiento/producto/RE5012','_blank')">DGAC OBS</button> 
-  <button class="btn btn-darkcyan" onclick="window.open('https://zoom.earth/','_blank')">ZOOM EARTH</button> 
-  <button class="btn btn-purple" onclick="window.open('https://www.windy.com/','_blank')">WINDY</button> 
-  <button class="btn btn-brown" onclick="window.open('https://remuneraciones.armada.cl/portalIntranetRemun/','_blank')">REMUNERACIONES</button> 
-
-  <button class="btn btn-turquoise" onclick="window.open('https://serviciosonline.directemar.cl/auth2/login/0/1/0','_blank')">METEOCARGA</button> 
-  <button class="btn btn-magenta" onclick="window.open('https://prontus-meteoarmada.directemar.cl/cgi-cpn/prontus_index.cgi?_prontus_id=meteo','_blank')">PRONTUS (P)</button> 
-
-
-
-
+<div class="floating-container">
+  <a href="https://meteoarmada.directemar.cl/prontus_meteo/site/edic/base/port/inicio.html" 
+     target="_blank" class="floating-btn">
+      <img src="https://archive.org/download/logo-servimet-transparente/LOGO_SERVIMET_TRANSPARENTE.png" 
+           alt="Icono" style="width: 80%; height: auto;">
+  </a>
+  <a href="https://intranet.dgtm.cl" target="_blank" class="floating-btn">
+    <img src="https://archive.org/download/chat-gpt-image-1-sept-2025-15-47-06/ChatGPT%20Image%201%20sept%202025%2C%2015_47_06.png" 
+         alt="Icono" style="width: 100%; height: 100%; border-radius: 50%;">
+  </a>
 </div>
-
-<!-- Slideshow -->
-<div class="slideshow-container">
-  <img src="https://web.directemar.cl/met/jturno/pluvio/pluvio_pmo.jpg" class="active">
-  <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.13.50.jpeg">
-  <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.13.52.jpeg">
-  <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.03.jpeg">
-  <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.06.jpeg">
-  <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.08.jpeg">
-  <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.14%20%281%29.jpeg">
-  <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.15%20%282%29.jpeg">
-</div>
-
-<!-- Botón flotante -->
-<a href="https://intranet.dgtm.cl" target="_blank" 
-   class="floating-btn" 
-   style="right: 90px; background: #001f3f;">
-  <img src="https://archive.org/download/chat-gpt-image-1-sept-2025-15-47-06/ChatGPT%20Image%201%20sept%202025%2C%2015_47_06.png" 
-       alt="Icono" 
-       style="width: 100%; height: 100%; border-radius: 50%;">
-</a>
-
-<!-- Botón flotante al lado izquierdo -->
-<a href="https://meteoarmada.directemar.cl/prontus_meteo/site/edic/base/port/inicio.html" 
-   target="_blank" 
-   class="floating-btn" 
-   style="left: 90px; background: #001f3f;">
-    <img src="https://archive.org/download/logo-servimet-transparente/LOGO_SERVIMET_TRANSPARENTE.png" 
-         alt="Icono" 
-         style="width: 100px; height: 100px;">
-</a>
-
-<!-- Pie -->
-<footer>
-  Creado por Cabo 2º (Met.) Francisco Salas Muñoz - 26/08/2025 
-</footer>
 
 <script>
 // Slideshow
@@ -329,20 +344,30 @@ function showSlides() {
   slides[slideIndex].classList.add("active");
   slideIndex = (slideIndex + 1) % slides.length;
 }
-showSlides();
 setInterval(showSlides, 5000);
 
-// Relojes
+// Relojes: Forzando UTC a +4 horas de la hora local
 function updateClocks() {
   const now = new Date();
+  
+  // 1. Obtener la hora local exacta del computador
+  const localHours = now.getHours();
+  const localMinutes = String(now.getMinutes()).padStart(2, '0');
+  const localSeconds = String(now.getSeconds()).padStart(2, '0');
+  
   document.getElementById('localClock').textContent = 
-    `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+    `${String(localHours).padStart(2, '0')}:${localMinutes}:${localSeconds}`;
+  
+  // 2. Forzar la hora UTC sumando exactamente 4 horas
+  // Usamos % 24 para que si son las 22:00 local, UTC marque 02:00 del día siguiente
+  const utcHoursForzado = (localHours + 4) % 24;
+  
   document.getElementById('utcClock').textContent = 
-    `${String(now.getUTCHours()).padStart(2,'0')}:${String(now.getUTCMinutes()).padStart(2,'0')}:${String(now.getUTCSeconds()).padStart(2,'0')}`;
+    `${String(utcHoursForzado).padStart(2, '0')}:${localMinutes}:${localSeconds}`;
 }
+
 setInterval(updateClocks, 1000);
 updateClocks();
 </script>
-
 </body>
 </html>
