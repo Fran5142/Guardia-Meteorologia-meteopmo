@@ -179,11 +179,11 @@
         .top-header-container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 50px;
+            justify-content: space-between; /* Empuja los relojes hacia los costados */
+            gap: 20px; /* Espaciado mínimo en móviles */
             margin-bottom: 30px;
             width: 100%;
-            max-width: 900px;
+            max-width: 1200px; /* Define qué tan separados quedan los relojes */
         }
 
         .contenedor-logo img {
@@ -388,11 +388,10 @@
                     <a href="https://serviciosonline.directemar.cl/auth2/login/0/1/0" target="_blank" class="btn-turquoise">METEOCARGA</a>
                     <a href="https://prontus-meteoarmada.directemar.cl/cgi-cpn/prontus_index.cgi?_prontus_id=meteo" target="_blank" class="btn-magenta">PRONTUS (P)</a>
                     <a href="https://fran5142.github.io/PLUVIOMETRIA/" target="_blank" class="btn-red">PLUVIOMETRÍA</a>
-
                 </div>
             </li>
 
-            <!-- RESTO DEL MENÚ LIMPIO DE DUPLICADOS -->
+            <!-- RESTO DEL MENÚ -->
             <li>
                 <a href="#">📋 Pronósticos PDF ▼</a>
                 <ul class="submenu-normal">
@@ -459,7 +458,7 @@
 
         <!-- SECCIÓN DE FOTOS / MONITOREO -->
         <div class="slideshow-wrapper">
-            <div class="subtitulo" style="margin-bottom: 15px; font-weight: bold; font-size: 1rem; color: #ffffff;">VISOR DE CÁMARAS / IMÁGENES</div>
+            <div class="subtitulo" style="margin-bottom: 15px; font-weight: bold; font-size: 1rem; color: #ffffff;">IMÁGENES</div>
             <div class="slideshow-container">
                 <img src="https://web.directemar.cl/met/jturno/pluvio/pluvio_pmo.jpg" class="active">
                 <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.13.50.jpeg">
