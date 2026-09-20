@@ -1,377 +1,530 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GUARDIA CENMETEOPMO - DASHBOARD</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700&family=Roboto+Mono:wght@500;700&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CENTRO METEOROLÓGICO PUERTO MONTT - INICIO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
 
-:root {
-  --bg-main: #0a1118; /* Azul marino muy oscuro */
-  --bg-panel: #131e2b;
-  --border-panel: #20334a;
-  --text-main: #e2e8f0;
-  --accent: #4fd1c5;
-}
+    <style>
+        /* =========================================
+           1. VARIABLES Y BASE 
+           ========================================= */
+        :root {
+            --azul-oscuro: #0a1118;
+            --azul-medio: #112030;
+            --azul-brillante: #20334a;
+            --cian: #4cc9f0;
+            --blanco: #e2e8f0;
+            --bg-panel: #131e2b;
+        }
 
-body {
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  padding: 20px;
-  background-color: var(--bg-main);
-  background-image: radial-gradient(circle at top right, #112030, transparent 40%);
-  color: var(--text-main);
-  min-height: 100vh;
-  box-sizing: border-box;
-}
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--azul-oscuro);
+            background-image: radial-gradient(circle at top, var(--azul-medio) 0%, var(--azul-oscuro) 100%);
+            background-attachment: fixed;
+            color: var(--blanco);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-/* Contenedor Principal Dashboard */
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
+        /* =========================================
+           2. MENÚ DE NAVEGACIÓN
+           ========================================= */
+        nav {
+            background: rgba(10, 17, 24, 0.95);
+            border-bottom: 2px solid var(--cian);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
 
-@media (min-width: 1024px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
-/* Paneles */
-.panel {
-  background: var(--bg-panel);
-  border: 1px solid var(--border-panel);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-}
+        nav ul li { position: relative; }
 
-/* Encabezado Principal (Ocupa ambas columnas) */
-.header-panel {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-}
+        nav ul li > a {
+            display: block;
+            padding: 16px 20px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
 
-.header-panel::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; height: 4px;
-  background: linear-gradient(90deg, #3498db, #2ecc71);
-}
+        nav ul li > a:hover {
+            color: var(--cian);
+            background: rgba(76, 201, 240, 0.1);
+        }
 
-h2.main-header {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 2.2em;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 10px 0;
-  text-align: center;
-  letter-spacing: 2px;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-}
+        /* Submenú Normal */
+        nav ul li .submenu-normal {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--azul-medio);
+            min-width: 280px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            border-radius: 0 0 8px 8px;
+            border: 1px solid var(--azul-brillante);
+            padding: 10px 0;
+            z-index: 1100;
+        }
 
-/* Relojes y Logo */
-.top-bar {
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 15px;
-}
+        nav ul li:hover > .submenu-normal { display: block; animation: fadeIn 0.3s ease; }
 
-.clock-widget {
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid #2a3f5a;
-  padding: 15px 25px;
-  border-radius: 12px;
-  text-align: center;
-  min-width: 180px;
-}
+        nav ul li .submenu-normal li a {
+            padding: 12px 20px;
+            text-transform: none;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+        nav ul li .submenu-normal li a:hover { color: var(--cian); }
 
-.clock-label {
-  font-size: 0.8em;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: #8babc4;
-  margin-bottom: 5px;
-}
+        /* Mega Menú (Enlaces de Guardia - Corregido para mostrar todos) */
+        .mega-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0; /* Alineado a la izquierda para mejor visibilidad */
+            background-color: var(--bg-panel);
+            width: 800px;
+            max-width: 95vw;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            border-radius: 0 0 12px 12px;
+            border: 1px solid var(--azul-brillante);
+            padding: 20px;
+            z-index: 1100;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 12px;
+            max-height: 80vh; /* Para pantallas pequeñas, permite scroll interior si es necesario */
+            overflow-y: auto;
+        }
 
-.clock {
-  font-family: 'Roboto Mono', monospace;
-  font-size: 2.2em;
-  font-weight: 700;
-  color: var(--accent);
-  text-shadow: 0 0 10px rgba(79, 209, 197, 0.3);
-}
+        nav ul li:hover > .mega-menu {
+            display: grid;
+            animation: fadeIn 0.3s ease;
+        }
 
-.logo-container img {
-  height: 160px;
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
-}
+        .mega-menu a {
+            padding: 12px 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            background-size: 200% 100%;
+            min-height: 45px;
+        }
 
-/* Contenedor de Botones (Panel Izquierdo) */
-.btn-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 12px;
-}
+        .mega-menu a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+            filter: brightness(1.1);
+        }
 
-.btn {
-  padding: 14px 10px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.85em;
-  font-weight: 600;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  background-size: 200% 100%;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.5);
-  filter: brightness(1.1);
-}
+        /* Colores Botones (Extraídos del original 4.html) */
+        .btn-purple { background-image: linear-gradient(90deg,#8e44ad,#4a235a); }
+        .btn-blue { background-image: linear-gradient(90deg,#3498db,#2c3e50); }
+        .btn-green { background-image: linear-gradient(90deg,#2ecc71,#27ae60); }
+        .btn-orange { background-image: linear-gradient(90deg,#f39c12,#d35400); }
+        .btn-red { background-image: linear-gradient(90deg,#e74c3c,#c0392b); }
+        .btn-oldgold { background-image: linear-gradient(90deg,#b7950b,#7d6608); }
+        .btn-turquoise { background-image: linear-gradient(90deg,#1abc9c,#16a085); }
+        .btn-brown { background-image: linear-gradient(90deg,#a0522d,#6e2c00); }
+        .btn-magenta { background-image: linear-gradient(90deg,#ff00ff,#8e44ad); }
+        .btn-darkcyan { background-image: linear-gradient(90deg,#008b8b,#005555); }
 
-.btn-wide {
-  grid-column: 1 / -1;
-  padding: 16px;
-  font-size: 0.95em;
-}
+        /* =========================================
+           3. CONTENIDO PRINCIPAL (HERO Y RELOJES)
+           ========================================= */
+        .hero-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
 
-/* Colores Originales Exactos */
-.btn-purple { background-image: linear-gradient(90deg,#8e44ad,#4a235a); }
-.btn-blue { background-image: linear-gradient(90deg,#3498db,#2c3e50); }
-.btn-green { background-image: linear-gradient(90deg,#2ecc71,#27ae60); }
-.btn-orange { background-image: linear-gradient(90deg,#f39c12,#d35400); }
-.btn-red { background-image: linear-gradient(90deg,#e74c3c,#c0392b); }
-.btn-gold { background-image: linear-gradient(90deg,#f1c40f,#f39c12); }
-.btn-turquoise { background-image: linear-gradient(90deg,#1abc9c,#16a085); }
-.btn-pink { background-image: linear-gradient(90deg,#ff6b81,#c0392b); }
-.btn-brown { background-image: linear-gradient(90deg,#a0522d,#6e2c00); }
-.btn-lightgray { background-image: linear-gradient(90deg,#bdc3c7,#7f8c8d); }
-.btn-darkgray { background-image: linear-gradient(90deg,#7f8c8d,#2c3e50); }
-.btn-lightblue { background-image: linear-gradient(90deg,#5dade2,#2e86c1); }
-.btn-lime { background-image: linear-gradient(90deg,#a3e635,#6f9e18); }
-.btn-coral { background-image: linear-gradient(90deg,#ff7f50,#e74c3c); }
-.btn-salmon { background-image: linear-gradient(90deg,#fa8072,#e74c3c); }
-.btn-navy { background-image: linear-gradient(90deg,#34495e,#2c3e50); }
-.btn-oldgold { background-image: linear-gradient(90deg,#b7950b,#7d6608); }
-.btn-lightviolet { background-image: linear-gradient(90deg,#af7ac5,#7d3c98); }
-.btn-emerald { background-image: linear-gradient(90deg,#2ecc71,#27ae60); }
-.btn-skyblue { background-image: linear-gradient(90deg,#87ceeb,#3498db); }
-.btn-magenta { background-image: linear-gradient(90deg,#ff00ff,#8e44ad); }
-.btn-indigo { background-image: linear-gradient(90deg,#4b0082,#2c3e50); }
-.btn-beige { background-image: linear-gradient(90deg,#f5f5dc,#d7ccc8); }
-.btn-mint { background-image: linear-gradient(90deg,#98ff98,#2ecc71); }
-.btn-chocolate { background-image: linear-gradient(90deg,#d2691e,#8b4513); }
-.btn-darkcyan { background-image: linear-gradient(90deg,#008b8b,#005555); }
+        .top-header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 900px;
+        }
 
-/* Slideshow (Panel Derecho) */
-.slideshow-container {
-  width: 100%;
-  height: 100%;
-  min-height: 400px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  background: #000;
-}
+        .contenedor-logo img {
+            max-width: 220px;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(76, 201, 240, 0.5));
+            transition: transform 0.5s ease;
+        }
+        .contenedor-logo img:hover { transform: scale(1.05) rotate(2deg); }
 
-.slideshow-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
+        /* Relojes */
+        .clock-widget {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--azul-brillante);
+            padding: 15px 25px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 160px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .clock-label {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #8babc4;
+            margin-bottom: 5px;
+        }
+        .clock {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--cian);
+            text-shadow: 0 0 10px rgba(76, 201, 240, 0.3);
+        }
 
-.slideshow-container img.active {
-  opacity: 1;
-}
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            margin: 0;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(76, 201, 240, 0.3);
+        }
 
-/* Botones flotantes */
-.floating-container {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  display: flex;
-  justify-content: space-between;
-  pointer-events: none; /* Deja clickear a través de la caja invisible */
-  z-index: 1000;
-}
+        .subtitulo {
+            color: var(--cian);
+            font-size: 1.2rem;
+            margin-top: 10px;
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
 
-.floating-btn {
-  pointer-events: auto; /* Reactiva el click en los botones */
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  background: #131e2b;
-  border: 2px solid #20334a;
-}
+        .separador {
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            margin: 25px 0;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--cian);
+        }
 
-.floating-btn:hover {
-  transform: scale(1.1);
-}
+        /* Accesos Principales (Centro) */
+        .grid-accesos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+            margin-top: 20px;
+        }
 
-/* Pie de firma */
-footer {
-  grid-column: 1 / -1;
-  margin-top: 20px;
-  padding: 15px;
-  font-size: 0.85em;
-  text-align: center;
-  color: #5d758f;
-  border-top: 1px solid var(--border-panel);
-}
+        .tarjeta-acceso {
+            background: rgba(19, 30, 43, 0.8);
+            border: 1px solid var(--azul-brillante);
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-@media (max-width: 768px) {
-  .top-bar {
-    flex-direction: column;
-    gap: 15px;
-  }
-  .slideshow-container {
-    min-height: 300px;
-  }
-}
-</style>
+        .tarjeta-acceso:hover {
+            background: #20334a;
+            border-color: var(--cian);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+        }
+
+        /* =========================================
+           4. SECCIÓN DE IMÁGENES (SLIDESHOW)
+           ========================================= */
+        .slideshow-wrapper {
+            margin-top: 50px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .slideshow-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #000;
+            border: 1px solid var(--azul-brillante);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+
+        .slideshow-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ajusta la imagen para que no se corte */
+            position: absolute;
+            top: 0; left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slideshow-container img.active {
+            opacity: 1;
+        }
+
+        /* =========================================
+           5. BOTONES FLOTANTES Y FOOTER
+           ========================================= */
+        .floating-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .floating-btn {
+            pointer-events: auto;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            background: #131e2b;
+            border: 2px solid #20334a;
+        }
+
+        .floating-btn:hover { transform: scale(1.1); }
+
+        footer {
+            background-color: var(--bg-panel);
+            color: #5d758f;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-top: 1px solid var(--azul-brillante);
+            letter-spacing: 1px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 850px) {
+            .top-header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="dashboard-grid">
-  
-  <header class="panel header-panel">
-    <h2 class="main-header">GUARDIA METEOROLOGÍA CENMETEOPMO</h2>
-    <div class="top-bar">
-      <div class="clock-widget">
-        <div class="clock-label">Hora Local</div>
-        <div class="clock" id="localClock">--:--:--</div>
-      </div>
-      <div class="logo-container">
-        <img src="https://archive.org/download/imagen_mejorada_3D/LOGO%20METEOPMO.png" alt="Logo">
-      </div>
-      <div class="clock-widget">
-        <div class="clock-label">Hora UTC</div>
-        <div class="clock" id="utcClock">--:--:--</div>
-      </div>
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav>
+        <ul>
+            <!-- MEGA MENÚ DE GUARDIA AL PRINCIPIO CON LOS 17 BOTONES DE LA VISTA 4 -->
+            <li>
+                <a href="#" style="color: var(--cian); font-weight: 700;">🚀 ENLACES GUARDIA ▼</a>
+                <div class="mega-menu">
+                    <!-- Todos los enlaces extraídos directamente del archivo 4.html -->
+                    <a href="https://sgdi-gmpmo.dgtm.cl/sgdi" target="_blank" class="btn-green">SGDI</a>
+                    <a href="http://172.16.0.149/aplica/index.php#" target="_blank" class="btn-red">SYNOP DB</a>
+                    <a href="https://mdaemon2.dgtm.cl/WorldClient.dll?Session=UQGL4O2AFQBNB&View=Main&NextView=List&NextFolderID=0&NextFolder=Bandeja%20de%20entrada" target="_blank" class="btn-blue">CORREO</a>
+                    <a href="https://cumulus.dgtm.cl/nextcloud/index.php/login" target="_blank" class="btn-orange">NUBE 2.0</a>
+                    <a href="https://web.directemar.cl/met/jturno/indice/index.htm" target="_blank" class="btn-blue">LIVIANA</a>
+                    <a href="https://web.directemar.cl/met/jturno/estaciones/davis.htm" target="_blank" class="btn-green">ESTACIONES</a>
+                    <a href="https://web.directemar.cl/met/jturno/pluvio/pluvio_pmo.jpg" target="_blank" class="btn-red">AGUA CAÍDA</a>
+                    <a href="https://fran5142.github.io/Calculadora-Psicrom-trica/" target="_blank" class="btn-orange">CALC. RH</a>
+                    <a href="https://www.meteochile.gob.cl/PortalDMC-web/index.xhtml" target="_blank" class="btn-red">DMC UV</a>
+                    <a href="https://climatologia.meteochile.gob.cl/application/requerimiento/producto/RE5012" target="_blank" class="btn-oldgold">DGAC OBS</a>
+                    <a href="https://zoom.earth/" target="_blank" class="btn-darkcyan">ZOOM EARTH</a>
+                    <a href="https://www.windy.com/" target="_blank" class="btn-purple">WINDY</a>
+                    <a href="https://remuneraciones.armada.cl/portalIntranetRemun/" target="_blank" class="btn-brown">REMUNERACIONES</a>
+                    <a href="https://serviciosonline.directemar.cl/auth2/login/0/1/0" target="_blank" class="btn-turquoise">METEOCARGA</a>
+                    <a href="https://prontus-meteoarmada.directemar.cl/cgi-cpn/prontus_index.cgi?_prontus_id=meteo" target="_blank" class="btn-magenta">PRONTUS (P)</a>
+                    <a href="https://fran5142.github.io/PLUVIOMETRIA/" target="_blank" class="btn-red">PLUVIOMETRÍA</a>
+
+                </div>
+            </li>
+
+            <!-- RESTO DEL MENÚ (Del archivo NUAVA PARA CENEMETEO) -->
+            <li>
+                <a href="#">📋 Pronósticos PDF ▼</a>
+                <ul class="submenu-normal">
+                    <li><a href="https://fran5142.github.io/PRONOSTICOS-LOCALES-PMO-PDF/" target="_blank">CENMETEOPMO PDF</a></li>
+                </ul>
+            </li>
+            <li><a href="https://fran5142.github.io/Corrector-avanzado-meteorol-gico/" target="_blank">🛠️ Corrector</a></li>
+            <li><a href="https://fran5142.github.io/Traductor-meteorol-gico-avanzado/" target="_blank">🔤 Traductor</a></li>
+            <li>
+		        <a href="#">⚠️ Generador Avisos ▼</a>
+                <ul class="submenu-normal">
+                    <li><a href="https://fran5142.github.io/GENERADOR-AVISOS-PDF/" target="_blank">GENERADOR DE AVISOS</a></li>
+                    <li><a href="https://fran5142.github.io/AVISOS-JPG/" target="_blank">GENERADOR IMAGEN DE AVISOS</a></li>
+                </ul>
+            </li>
+            <li><a href="https://fran5142.github.io/CONVERTIDOR-EXEL-PRONOSTICOS-QUINZONA/" target="_blank">📈 Bahías Excel</a></li>
+            <li><a href="https://fran5142.github.io/CONVERTIDOR-EXEL-PRONOSTICO-CHILOE/" target="_blank">📈 Chiloé Excel</a></li>
+        </ul>
+    </nav>
+
+    <!-- SECCIÓN HERO Y RELOJES -->
+    <div class="hero-section">
+        
+        <div class="top-header-container">
+            <!-- Reloj Local -->
+            <div class="clock-widget">
+                <div class="clock-label">Hora Local</div>
+                <div class="clock" id="localClock">--:--:--</div>
+            </div>
+            
+            <!-- Logo Central -->
+            <div class="contenedor-logo">
+                <img src="https://ia600707.us.archive.org/7/items/escudo_202607/ESCUDO.png" alt="Logo Meteo PMO">
+            </div>
+            
+            <!-- Reloj UTC -->
+            <div class="clock-widget">
+                <div class="clock-label">Hora UTC</div>
+                <div class="clock" id="utcClock">--:--:--</div>
+            </div>
+        </div>
+        
+        <h1>CENTRO ZONAL DE METEOROLOGÍA MARINA DE</h1>
+        <h2>PUERTO MONTT</h2>
+        <div class="subtitulo">85802</div>
+        
+        <div class="separador"></div>
+        <p style="color: #8babc4; margin-bottom: 30px;">Plataforma interna de gestión y generación de productos meteorológicos.</p>
+
+        <!-- ACCESOS RÁPIDOS PRINCIPALES -->
+        <div class="grid-accesos">
+            <a href="https://meteoarmada.directemar.cl/" class="tarjeta-acceso" target="_blank">
+                <strong style="font-size: 1.1em; color: var(--cian);">SERVIMET</strong>
+                <small style="margin-top: 5px; color: #8babc4;">Página principal</small>
+            </a>
+            <a href="https://fran5142.github.io/CONVERTIDOR-EXEL-PRONOSTICOS-QUINZONA/" class="tarjeta-acceso" target="_blank">
+                <strong style="font-size: 1.1em; color: var(--cian);">PRONÓSTICOS BAHÍAS</strong>
+                <small style="margin-top: 5px; color: #8babc4;">Convertidor a Excel</small>
+            </a>
+            <a href="https://fran5142.github.io/CONVERTIDOR-EXEL-PRONOSTICO-CHILOE/" class="tarjeta-acceso" target="_blank">
+                <strong style="font-size: 1.1em; color: var(--cian);">CHILOÉ ORIENTAL</strong>
+                <small style="margin-top: 5px; color: #8babc4;">Convertidor a Excel</small>
+            </a>
+            <a href="https://fran5142.github.io/ESTADISTICAS-PRONOS-MENU-INICIO-CENMETEOPMO/" class="tarjeta-acceso" target="_blank">
+                <strong style="font-size: 1.1em; color: var(--cian);">ESTADÍSTICAS</strong>
+                <small style="margin-top: 5px; color: #8babc4;">Avisos, Apoyos y Pronósticos</small>
+            </a>
+        </div>
+
+        <!-- SECCIÓN DE FOTOS / MONITOREO -->
+        <div class="slideshow-wrapper">
+            <div class="subtitulo" style="margin-bottom: 15px; font-weight: bold; font-size: 1rem; color: #ffffff;">IMÁGENES</div>
+            <div class="slideshow-container">
+                <img src="https://web.directemar.cl/met/jturno/pluvio/pluvio_pmo.jpg" class="active">
+                <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.13.50.jpeg">
+                <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.13.52.jpeg">
+                <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.03.jpeg">
+                <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.06.jpeg">
+                <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.08.jpeg">
+                <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.14%20%281%29.jpeg">
+                <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.15%20%282%29.jpeg">
+            </div>
+        </div>
+
     </div>
-  </header>
 
-  <section class="panel">
-    <div class="btn-grid">
-      <button class="btn btn-green" onclick="window.open('https://sgdi-gmpmo.dgtm.cl/sgdi')">SGDI</button>
-      <button class="btn btn-red" onclick="window.open('http://172.16.0.149/aplica/index.php#')">SYNOP DB</button>
-      <button class="btn btn-blue" onclick="window.open('https://mdaemon2.dgtm.cl/WorldClient.dll?Session=UQGL4O2AFQBNB&View=Main&NextView=List&NextFolderID=0&NextFolder=Bandeja%20de%20entrada','_blank')">CORREO</button>
-      <button class="btn btn-orange" onclick="window.open('https://cumulus.dgtm.cl/nextcloud/index.php/login')">NUBE 2.0</button>
-      <button class="btn btn-blue" onclick="window.open('https://web.directemar.cl/met/jturno/indice/index.htm','_blank')">LIVIANA</button>
-      <button class="btn btn-green" onclick="window.open('https://web.directemar.cl/met/jturno/estaciones/davis.htm','_blank')">ESTACIONES</button>
-      <button class="btn btn-red" onclick="window.open('https://web.directemar.cl/met/jturno/pluvio/pluvio_pmo.jpg','_blank')">AGUA CAÍDA</button>
-      <button class="btn btn-orange" onclick="window.open('https://fran5142.github.io/Calculadora-Psicrom-trica/','_blank')">CALC. RH</button> 
-      
-      <button class="btn btn-red" onclick="window.open('https://www.meteochile.gob.cl/PortalDMC-web/index.xhtml','_blank')">DMC UV</button> 
-      <button class="btn btn-oldgold" onclick="window.open('https://climatologia.meteochile.gob.cl/application/requerimiento/producto/RE5012','_blank')">DGAC OBS</button> 
-      <button class="btn btn-darkcyan" onclick="window.open('https://zoom.earth/','_blank')">ZOOM EARTH</button> 
-      <button class="btn btn-purple" onclick="window.open('https://www.windy.com/','_blank')">WINDY</button> 
-      <button class="btn btn-brown" onclick="window.open('https://remuneraciones.armada.cl/portalIntranetRemun/','_blank')">REMUNERACIONES</button> 
-      <button class="btn btn-turquoise" onclick="window.open('https://serviciosonline.directemar.cl/auth2/login/0/1/0','_blank')">METEOCARGA</button> 
-      <button class="btn btn-magenta" onclick="window.open('https://prontus-meteoarmada.directemar.cl/cgi-cpn/prontus_index.cgi?_prontus_id=meteo','_blank')">PRONTUS (P)</button> 
-      <button class="btn btn-red" onclick="window.open('https://fran5142.github.io/PLUVIOMETRIA/')">PLUVIOMETRÍA</button>
-
-      <button class="btn btn-purple btn-wide" onclick="window.open('https://fran5142.github.io/GENERADOR-DE-PRONOSTICOS-PDF/')">GENERADOR DE PRONOSTICOS PDF SALAS</button>
-
-
-
+    <!-- BOTONES FLOTANTES DE LAS ESQUINAS -->
+    <div class="floating-container">
+        <a href="https://meteoarmada.directemar.cl/prontus_meteo/site/edic/base/port/inicio.html" target="_blank" class="floating-btn">
+            <img src="https://archive.org/download/logo-servimet-transparente/LOGO_SERVIMET_TRANSPARENTE.png" alt="Servimet" style="width: 80%; height: auto;">
+        </a>
+        <a href="https://intranet.dgtm.cl" target="_blank" class="floating-btn">
+            <img src="https://archive.org/download/chat-gpt-image-1-sept-2025-15-47-06/ChatGPT%20Image%201%20sept%202025%2C%2015_47_06.png" alt="Intranet" style="width: 100%; height: 100%; border-radius: 50%;">
+        </a>
     </div>
-  </section>
 
-  <section class="panel" style="padding: 10px;">
-    <div class="slideshow-container">
-      <img src="https://web.directemar.cl/met/jturno/pluvio/pluvio_pmo.jpg" class="active">
-      <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.13.50.jpeg">
-      <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.13.52.jpeg">
-      <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.03.jpeg">
-      <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.06.jpeg">
-      <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.08.jpeg">
-      <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.14%20%281%29.jpeg">
-      <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.14.15%20%282%29.jpeg">
-    </div>
-  </section>
+    <!-- PIE DE PÁGINA -->
+    <footer>
+        Creado por Cabo 1º (Met.) Francisco Salas Muñoz - Actualizado 2026
+    </footer>
 
-  <footer>
-    Creado por Cabo 1º (Met.) Francisco Salas Muñoz - Actualizado 2026
-  </footer>
+    <!-- SCRIPTS (RELOJES Y SLIDESHOW) -->
+    <script>
+        // Lógica del Slideshow
+        let slideIndex = 0;
+        const slides = document.querySelectorAll(".slideshow-container img");
+        function showSlides() {
+            slides.forEach(slide => slide.classList.remove("active"));
+            slides[slideIndex].classList.add("active");
+            slideIndex = (slideIndex + 1) % slides.length;
+        }
+        setInterval(showSlides, 5000);
 
-</div>
-
-<div class="floating-container">
-  <a href="https://meteoarmada.directemar.cl/prontus_meteo/site/edic/base/port/inicio.html" 
-     target="_blank" class="floating-btn">
-      <img src="https://archive.org/download/logo-servimet-transparente/LOGO_SERVIMET_TRANSPARENTE.png" 
-           alt="Icono" style="width: 80%; height: auto;">
-  </a>
-  <a href="https://intranet.dgtm.cl" target="_blank" class="floating-btn">
-    <img src="https://archive.org/download/chat-gpt-image-1-sept-2025-15-47-06/ChatGPT%20Image%201%20sept%202025%2C%2015_47_06.png" 
-         alt="Icono" style="width: 100%; height: 100%; border-radius: 50%;">
-  </a>
-</div>
-
-<script>
-// Slideshow
-let slideIndex = 0;
-const slides = document.querySelectorAll(".slideshow-container img");
-function showSlides() {
-  slides.forEach(slide => slide.classList.remove("active"));
-  slides[slideIndex].classList.add("active");
-  slideIndex = (slideIndex + 1) % slides.length;
-}
-setInterval(showSlides, 5000);
-
-// Relojes: Forzando UTC a +4 horas de la hora local
-function updateClocks() {
-  const now = new Date();
-  
-  // 1. Obtener la hora local exacta del computador
-  const localHours = now.getHours();
-  const localMinutes = String(now.getMinutes()).padStart(2, '0');
-  const localSeconds = String(now.getSeconds()).padStart(2, '0');
-  
-  document.getElementById('localClock').textContent = 
-    `${String(localHours).padStart(2, '0')}:${localMinutes}:${localSeconds}`;
-  
-  // 2. Forzar la hora UTC sumando exactamente 4 horas
-  // Usamos % 24 para que si son las 22:00 local, UTC marque 02:00 del día siguiente
-  const utcHoursForzado = (localHours + 4) % 24;
-  
-  document.getElementById('utcClock').textContent = 
-    `${String(utcHoursForzado).padStart(2, '0')}:${localMinutes}:${localSeconds}`;
-}
-
-setInterval(updateClocks, 1000);
-updateClocks();
-</script>
+        // Lógica de los Relojes (Local y UTC +4 horas)
+        function updateClocks() {
+            const now = new Date();
+            
+            const localHours = now.getHours();
+            const localMinutes = String(now.getMinutes()).padStart(2, '0');
+            const localSeconds = String(now.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('localClock').textContent = 
+                `${String(localHours).padStart(2, '0')}:${localMinutes}:${localSeconds}`;
+            
+            const utcHoursForzado = (localHours + 4) % 24;
+            
+            document.getElementById('utcClock').textContent = 
+                `${String(utcHoursForzado).padStart(2, '0')}:${localMinutes}:${localSeconds}`;
+        }
+        setInterval(updateClocks, 1000);
+        updateClocks();
+    </script>
 </body>
 </html>
