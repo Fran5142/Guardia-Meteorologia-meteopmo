@@ -8,15 +8,15 @@
 
     <style>
         /* =========================================
-           1. VARIABLES Y BASE 
+           1. VARIABLES Y BASE (AZUL MARINO)
            ========================================= */
         :root {
-            --azul-oscuro: #0a1118;
-            --azul-medio: #112030;
-            --azul-brillante: #20334a;
+            --azul-oscuro: #001f3f;
+            --azul-medio: #003366;
+            --azul-brillante: #004d99;
             --cian: #4cc9f0;
             --blanco: #e2e8f0;
-            --bg-panel: #131e2b;
+            --bg-panel: #002244;
         }
 
         body {
@@ -36,7 +36,7 @@
            2. MENÚ DE NAVEGACIÓN
            ========================================= */
         nav {
-            background: rgba(10, 17, 24, 0.95);
+            background: rgba(0, 31, 63, 0.95);
             border-bottom: 2px solid var(--cian);
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             position: sticky;
@@ -101,12 +101,12 @@
         }
         nav ul li .submenu-normal li a:hover { color: var(--cian); }
 
-        /* Mega Menú (Enlaces de Guardia - Corregido para mostrar todos) */
+        /* Mega Menú */
         .mega-menu {
             display: none;
             position: absolute;
             top: 100%;
-            left: 0; /* Alineado a la izquierda para mejor visibilidad */
+            left: 0;
             background-color: var(--bg-panel);
             width: 800px;
             max-width: 95vw;
@@ -117,7 +117,7 @@
             z-index: 1100;
             grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
             gap: 12px;
-            max-height: 80vh; /* Para pantallas pequeñas, permite scroll interior si es necesario */
+            max-height: 80vh;
             overflow-y: auto;
         }
 
@@ -152,7 +152,7 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Colores Botones (Extraídos del original 4.html) */
+        /* Colores Botones */
         .btn-purple { background-image: linear-gradient(90deg,#8e44ad,#4a235a); }
         .btn-blue { background-image: linear-gradient(90deg,#3498db,#2c3e50); }
         .btn-green { background-image: linear-gradient(90deg,#2ecc71,#27ae60); }
@@ -196,7 +196,7 @@
 
         /* Relojes */
         .clock-widget {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 34, 68, 0.6);
             border: 1px solid var(--azul-brillante);
             padding: 15px 25px;
             border-radius: 12px;
@@ -246,7 +246,7 @@
             box-shadow: 0 0 10px var(--cian);
         }
 
-        /* Accesos Principales (Centro) */
+        /* Accesos Principales */
         .grid-accesos {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -257,7 +257,7 @@
         }
 
         .tarjeta-acceso {
-            background: rgba(19, 30, 43, 0.8);
+            background: rgba(0, 51, 102, 0.6);
             border: 1px solid var(--azul-brillante);
             padding: 20px;
             border-radius: 12px;
@@ -271,7 +271,7 @@
         }
 
         .tarjeta-acceso:hover {
-            background: #20334a;
+            background: var(--azul-brillante);
             border-color: var(--cian);
             transform: translateY(-5px);
             box-shadow: 0 8px 15px rgba(0,0,0,0.4);
@@ -300,7 +300,7 @@
         .slideshow-container img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Ajusta la imagen para que no se corte */
+            object-fit: contain;
             position: absolute;
             top: 0; left: 0;
             opacity: 0;
@@ -336,15 +336,15 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
             cursor: pointer;
             transition: transform 0.2s ease;
-            background: #131e2b;
-            border: 2px solid #20334a;
+            background: var(--bg-panel);
+            border: 2px solid var(--azul-brillante);
         }
 
         .floating-btn:hover { transform: scale(1.1); }
 
         footer {
             background-color: var(--bg-panel);
-            color: #5d758f;
+            color: #8babc4;
             text-align: center;
             padding: 20px;
             font-size: 14px;
@@ -368,11 +368,10 @@
     <!-- BARRA DE NAVEGACIÓN -->
     <nav>
         <ul>
-            <!-- MEGA MENÚ DE GUARDIA AL PRINCIPIO CON LOS 17 BOTONES DE LA VISTA 4 -->
+            <!-- MEGA MENÚ DE GUARDIA -->
             <li>
                 <a href="#" style="color: var(--cian); font-weight: 700;">🚀 ENLACES GUARDIA ▼</a>
                 <div class="mega-menu">
-                    <!-- Todos los enlaces extraídos directamente del archivo 4.html -->
                     <a href="https://sgdi-gmpmo.dgtm.cl/sgdi" target="_blank" class="btn-green">SGDI</a>
                     <a href="http://172.16.0.149/aplica/index.php#" target="_blank" class="btn-red">SYNOP DB</a>
                     <a href="https://mdaemon2.dgtm.cl/WorldClient.dll?Session=UQGL4O2AFQBNB&View=Main&NextView=List&NextFolderID=0&NextFolder=Bandeja%20de%20entrada" target="_blank" class="btn-blue">CORREO</a>
@@ -393,7 +392,7 @@
                 </div>
             </li>
 
-            <!-- RESTO DEL MENÚ (Del archivo NUAVA PARA CENEMETEO) -->
+            <!-- RESTO DEL MENÚ LIMPIO DE DUPLICADOS -->
             <li>
                 <a href="#">📋 Pronósticos PDF ▼</a>
                 <ul class="submenu-normal">
@@ -403,14 +402,12 @@
             <li><a href="https://fran5142.github.io/Corrector-avanzado-meteorol-gico/" target="_blank">🛠️ Corrector</a></li>
             <li><a href="https://fran5142.github.io/Traductor-meteorol-gico-avanzado/" target="_blank">🔤 Traductor</a></li>
             <li>
-		        <a href="#">⚠️ Generador Avisos ▼</a>
+                <a href="#">⚠️ Generador Avisos ▼</a>
                 <ul class="submenu-normal">
                     <li><a href="https://fran5142.github.io/GENERADOR-AVISOS-PDF/" target="_blank">GENERADOR DE AVISOS</a></li>
                     <li><a href="https://fran5142.github.io/AVISOS-JPG/" target="_blank">GENERADOR IMAGEN DE AVISOS</a></li>
                 </ul>
             </li>
-            <li><a href="https://fran5142.github.io/CONVERTIDOR-EXEL-PRONOSTICOS-QUINZONA/" target="_blank">📈 Bahías Excel</a></li>
-            <li><a href="https://fran5142.github.io/CONVERTIDOR-EXEL-PRONOSTICO-CHILOE/" target="_blank">📈 Chiloé Excel</a></li>
         </ul>
     </nav>
 
@@ -418,18 +415,15 @@
     <div class="hero-section">
         
         <div class="top-header-container">
-            <!-- Reloj Local -->
             <div class="clock-widget">
                 <div class="clock-label">Hora Local</div>
                 <div class="clock" id="localClock">--:--:--</div>
             </div>
             
-            <!-- Logo Central -->
             <div class="contenedor-logo">
                 <img src="https://ia600707.us.archive.org/7/items/escudo_202607/ESCUDO.png" alt="Logo Meteo PMO">
             </div>
             
-            <!-- Reloj UTC -->
             <div class="clock-widget">
                 <div class="clock-label">Hora UTC</div>
                 <div class="clock" id="utcClock">--:--:--</div>
@@ -441,31 +435,31 @@
         <div class="subtitulo">85802</div>
         
         <div class="separador"></div>
-        <p style="color: #8babc4; margin-bottom: 30px;">Plataforma interna de gestión y generación de productos meteorológicos.</p>
+        <p style="color: #b0c4de; margin-bottom: 30px;">Plataforma interna de gestión y generación de productos meteorológicos.</p>
 
         <!-- ACCESOS RÁPIDOS PRINCIPALES -->
         <div class="grid-accesos">
             <a href="https://meteoarmada.directemar.cl/" class="tarjeta-acceso" target="_blank">
                 <strong style="font-size: 1.1em; color: var(--cian);">SERVIMET</strong>
-                <small style="margin-top: 5px; color: #8babc4;">Página principal</small>
+                <small style="margin-top: 5px; color: #b0c4de;">Página principal</small>
             </a>
             <a href="https://fran5142.github.io/CONVERTIDOR-EXEL-PRONOSTICOS-QUINZONA/" class="tarjeta-acceso" target="_blank">
                 <strong style="font-size: 1.1em; color: var(--cian);">PRONÓSTICOS BAHÍAS</strong>
-                <small style="margin-top: 5px; color: #8babc4;">Convertidor a Excel</small>
+                <small style="margin-top: 5px; color: #b0c4de;">Convertidor a Excel</small>
             </a>
             <a href="https://fran5142.github.io/CONVERTIDOR-EXEL-PRONOSTICO-CHILOE/" class="tarjeta-acceso" target="_blank">
                 <strong style="font-size: 1.1em; color: var(--cian);">CHILOÉ ORIENTAL</strong>
-                <small style="margin-top: 5px; color: #8babc4;">Convertidor a Excel</small>
+                <small style="margin-top: 5px; color: #b0c4de;">Convertidor a Excel</small>
             </a>
             <a href="https://fran5142.github.io/ESTADISTICAS-PRONOS-MENU-INICIO-CENMETEOPMO/" class="tarjeta-acceso" target="_blank">
                 <strong style="font-size: 1.1em; color: var(--cian);">ESTADÍSTICAS</strong>
-                <small style="margin-top: 5px; color: #8babc4;">Avisos, Apoyos y Pronósticos</small>
+                <small style="margin-top: 5px; color: #b0c4de;">Avisos, Apoyos y Pronósticos</small>
             </a>
         </div>
 
         <!-- SECCIÓN DE FOTOS / MONITOREO -->
         <div class="slideshow-wrapper">
-            <div class="subtitulo" style="margin-bottom: 15px; font-weight: bold; font-size: 1rem; color: #ffffff;">IMÁGENES</div>
+            <div class="subtitulo" style="margin-bottom: 15px; font-weight: bold; font-size: 1rem; color: #ffffff;">VISOR DE CÁMARAS / IMÁGENES</div>
             <div class="slideshow-container">
                 <img src="https://web.directemar.cl/met/jturno/pluvio/pluvio_pmo.jpg" class="active">
                 <img src="https://archive.org/download/whats-app-image-2025-09-01-at-20.14.14-1/WhatsApp%20Image%202025-09-01%20at%2020.13.50.jpeg">
